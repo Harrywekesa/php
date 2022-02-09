@@ -1,12 +1,16 @@
-<!DOCTYPE html>
-<html>
+<<!doctype html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <style>
         .error {color: #FF0001;}
     </style>
+    <title>Form Validation</title>
 </head>
 <body>
-
 <?php
 // define variables to empty values
 $nameErr = $emailErr = $mobilenoErr = $genderErr = $websiteErr = $agreeErr = "";
@@ -15,8 +19,8 @@ $name = $email = $mobileno = $gender = $website = $agree = "";
 //Input fields validation
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    //String Validation  
-    if (emptyempty($_POST["name"])) {
+    //String Validation
+    if (empty($_POST["name"])) {
         $nameErr = "Name is required";
     } else {
         $name = input_data($_POST["name"]);
@@ -27,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     //Email Validation
-    if (emptyempty($_POST["email"])) {
+    if (empty($_POST["email"])) {
         $emailErr = "Email is required";
     } else {
         $email = input_data($_POST["email"]);
@@ -38,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     //Number Validation
-    if (emptyempty($_POST["mobileno"])) {
+    if (empty($_POST["mobileno"])) {
         $mobilenoErr = "Mobile no is required";
     } else {
         $mobileno = input_data($_POST["mobileno"]);
@@ -53,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     //URL Validation
-    if (emptyempty($_POST["website"])) {
+    if (empty($_POST["website"])) {
         $website = "";
     } else {
         $website = input_data($_POST["website"]);
@@ -64,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     //Empty Field Validation
-    if (emptyempty ($_POST["gender"])) {
+    if (empty ($_POST["gender"])) {
         $genderErr = "Gender is required";
     } else {
         $gender = input_data($_POST["gender"]);
@@ -80,8 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 function input_data($data) {
     $data = trim($data);
     $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
+    return htmlspecialchars($data);
 }
 ?>
 
@@ -122,7 +125,7 @@ function input_data($data) {
 <?php
 if(isset($_POST['submit'])) {
     if($nameErr == "" && $emailErr == "" && $mobilenoErr == "" && $genderErr == "" && $websiteErr == "" && $agreeErr == "") {
-        echo "<h3 color = #FF0001> <b>You have sucessfully registered.</b> </h3>";
+        echo "<h3 color = #FF0001> <b>You have successfully registered.</b> </h3>";
         echo "<h2>Your Input:</h2>";
         echo "Name: " .$name;
         echo "<br>";
@@ -134,10 +137,9 @@ if(isset($_POST['submit'])) {
         echo "<br>";
         echo "Gender: " .$gender;
     } else {
-        echo "<h3> <b>You didn't filled up the form correctly.</b> </h3>";
+        echo "<h3> <b>You didn't fill up the form correctly.</b> </h3>";
     }
 }
 ?>
-
 </body>
 </html>
