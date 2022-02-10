@@ -1,4 +1,4 @@
-<<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,8 +13,8 @@
 <body>
 <?php
 // define variables to empty values
-$nameErr = $emailErr = $mobilenoErr = $genderErr = $websiteErr = $agreeErr = "";
-$name = $email = $mobileno = $gender = $website = $agree = "";
+$nameErr = $emailErr = $mobilenoErr = $genderErr = "";
+$name = $email = $mobileno = $gender = "";
 
 //Input fields validation
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -50,20 +50,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!preg_match ("/^[0-9]*$/", $mobileno) ) {
             $mobilenoErr = "Only numeric value is allowed.";
         }
-        //check mobile no length should not be less and greator than 10
+        //check mobile no length should not be less and greater than 10
         if (strlen ($mobileno) != 10) {
             $mobilenoErr = "Mobile no must contain 10 digits.";
-        }
-    }
-
-    //URL Validation
-    if (empty($_POST["website"])) {
-        $website = "";
-    } else {
-        $website = input_data($_POST["website"]);
-        // check if URL address syntax is valid
-        if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$website)) {
-            $websiteErr = "Invalid URL";
         }
     }
 
@@ -74,12 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $gender = input_data($_POST["gender"]);
     }
 
-    //Checkbox Validation
-    if (!isset($_POST['agree'])){
-        $agreeErr = "Accept terms of services before submit.";
-    } else {
-        $agree = input_data($_POST["agree"]);
-    }
 }
 function input_data($data) {
     $data = trim($data);
@@ -104,19 +87,12 @@ function input_data($data) {
     <input type="text" name="mobileno">
     <span class="error">* <?php echo $mobilenoErr; ?> </span>
     <br><br>
-    Website:
-    <input type="text" name="website">
-    <span class="error"><?php echo $websiteErr; ?> </span>
-    <br><br>
-    Gender:
+    Gender:<span class="error">* <?php echo $genderErr; ?> </span><br>
     <input type="radio" name="gender" value="male"> Male
+    <br>
     <input type="radio" name="gender" value="female"> Female
+    <br>
     <input type="radio" name="gender" value="other"> Other
-    <span class="error">* <?php echo $genderErr; ?> </span>
-    <br><br>
-    Agree to Terms of Service:
-    <input type="checkbox" name="agree">
-    <span class="error">* <?php echo $agreeErr; ?> </span>
     <br><br>
     <input type="submit" name="submit" value="Submit">
     <br><br>
@@ -124,7 +100,7 @@ function input_data($data) {
 
 <?php
 if(isset($_POST['submit'])) {
-    if($nameErr == "" && $emailErr == "" && $mobilenoErr == "" && $genderErr == "" && $websiteErr == "" && $agreeErr == "") {
+    if($nameErr == "" && $emailErr == "" && $mobilenoErr == "" && $genderErr == "") {
         echo "<h3 color = #FF0001> <b>You have successfully registered.</b> </h3>";
         echo "<h2>Your Input:</h2>";
         echo "Name: " .$name;
@@ -132,8 +108,6 @@ if(isset($_POST['submit'])) {
         echo "Email: " .$email;
         echo "<br>";
         echo "Mobile No: " .$mobileno;
-        echo "<br>";
-        echo "Website: " .$website;
         echo "<br>";
         echo "Gender: " .$gender;
     } else {
